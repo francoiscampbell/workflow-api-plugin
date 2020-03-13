@@ -11,8 +11,9 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Provides overall insight into the structure of a flow graph... but with limited visibility so we can change implementation.
@@ -25,10 +26,10 @@ public final class StandardGraphLookupView implements GraphLookupView, GraphList
     static final String INCOMPLETE = "";
 
     /** Map the blockStartNode to its endNode, to accellerate a range of operations */
-    HashMap<String, String> blockStartToEnd = new HashMap<>();
+    Map<String, String> blockStartToEnd = new ConcurrentHashMap<>();
 
     /** Map a node to its nearest enclosing block */
-    HashMap<String, String> nearestEnclosingBlock = new HashMap<>();
+    Map<String, String> nearestEnclosingBlock = new ConcurrentHashMap<>();
 
     public void clearCache() {
         blockStartToEnd.clear();
